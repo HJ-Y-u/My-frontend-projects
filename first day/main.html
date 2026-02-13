@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            
+            display: flex;
+            
+            flex-direction: row;
+            /* flex-wrap: wrap; */
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            height: 100vh;
+        }
+        .box2{
+
+            /* border: 2px solid red; */
+            background-size: cover;      /* 1. 图片缩放填满容器 */
+            background-position: center; /* 2. 图片居中显示 */
+            background-repeat: no-repeat; /* 3. 图片不平铺 */
+            height: 80vh;
+            flex: 1;
+            border-radius: 50px;
+            margin: 10px;
+            cursor: pointer;
+            transition: all 700ms ease-in;
+            position: relative;
+        }
+        
+        .box2.active{
+            flex: 5;
+        }
+
+        h3{
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            /* margin: 0; */
+            opacity: 0;
+        }
+
+        .box2.active h3{
+            color: white;
+            opacity: 1;
+            transition: all 0.3s ease-in 0.4s;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- <div class="box2 active" style="background-image: url('https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');">
+        <h3>
+            你是煞笔
+        </h3>
+    </div> -->
+    <div class="box2" style="background-image: url('https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');">
+        <h3>
+            你是煞笔
+        </h3>
+    </div>
+    <div class="box2" style="background-image: url('https://images.unsplash.com/photo-1572276596237-5db2c3e16c5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')">
+        <h3>
+            你是煞笔    
+        </h3>
+    </div>
+
+    <div class="box2" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80')">
+        <h3>
+            你是煞笔
+        </h3>
+    </div>
+    <div class="box2" style="background-image: url('https://images.unsplash.com/photo-1551009175-8a68da93d5f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80')">
+        <h3>
+            你是煞笔
+        </h3>
+    </div>
+    <div class="box2" style="background-image: url('https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')">
+        <h3>
+            你是煞笔
+        </h3>
+    </div>
+
+
+
+
+    <script>
+        const panels = document.querySelectorAll('.box2')
+
+        panels.forEach(p =>{
+            p.addEventListener('click',()=>{
+                removeActive()
+                p.classList.add('active')
+            })
+        })
+
+        function removeActive(){
+            panels.forEach(p=>{
+                p.classList.remove('active')
+            })
+        }
+
+        document.body.addEventListener('click',(e)=>{
+            if(!e.target.closest('.box2')){
+                removeActive()
+            }
+        })
+
+
+    </script>
+</body>
+</html>
