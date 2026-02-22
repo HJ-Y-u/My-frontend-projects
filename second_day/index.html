@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container{
+            text-align: center;
+        }
+        .progress-container{
+            /* border: 2px solid red; */
+
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            /* overflow: hidden; */
+ 
+            margin: 30px;
+            width: 350px;   
+        }
+        .progress-container::before{
+            content: '';
+            background-color: black;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            top: 50%;
+            z-index: -1;
+        }
+        .progress {
+            position: absolute;
+            background-color: #3498db;
+            left: 0;
+            width: 0%;
+            top: 50%;
+            z-index: -1;
+            height: 4px;
+            transition: all 1s linear;
+        }
+        .circle {
+            background-color: #f1f1f1;
+            color:black;
+            border-radius: 50%;
+            height: 30px;
+            width: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid black;
+            /* transition: 0.4s ease; */
+        }
+        .circle.active{
+            border-color: #3498db;
+            transition: all 1s linear;
+        }
+        .btn {
+            background-color: blue;
+            color: #fff;
+            border: 0;
+            border-radius: 6px;
+            cursor: pointer;
+            
+            padding: 8px 30px;
+            /* width: 100px;
+            height: 30px; */
+            margin: 5px;
+            font-size: 14px;
+        }
+         .btn:active {
+            transform: scale(0.90);
+        }
+        .btn:hover{
+            background-color: green;
+        }
+        
+        .btn:disabled {
+        background-color: black;
+        cursor: not-allowed;
+        }
+
+        
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="progress-container">
+            <div class="progress" id="progress"></div>
+            <div class="circle active">1</div>
+            <div class="circle">2</div>
+            <div class="circle">3</div>
+            <div class="circle">4</div>
+        </div>
+
+        <button class="btn" id="prev" >prev</button>
+        <button class="btn" id="next">next</button>
+    </div>
+    
+    <script>
+        const pre = document.getElementById('prev')
+        const next = document.getElementById('next')
+        const circles = document.querySelectorAll('.circle')
+        const progress = document.getElementById('progress')
+
+        let currentActive=1
+
+        
+        
+        function update() {
+            circles.forEach((circle,idx)=>{
+                if((idx+1) <= currentActive){
+                    circle.classList.add('active')
+                }else{
+                    circle.classList.remove('active')
+                }
+            })
+
+
+
+            if(currentActive == 1){
+                pre.disabled = true;
+                next.disabled = false;
+            }else if(currentActive == circles.length){
+                next.disabled = true;
+                pre.disabled = false;
+            }else{
+                pre.disabled = false;
+                next.disabled = false;
+            }
+            const actives = document.querySelectorAll('.active')
+            progress.style.width = (actives.length - 1) / (circles.length - 1) * 100 + '%'
+            
+        }
+
+        pre.addEventListener('click',()=>{
+            currentActive -- ;
+
+            if(currentActive < 1){
+                currentActive = 1;
+            }
+            update();
+        })
+
+        next.addEventListener('click',()=>{
+            currentActive ++ ;
+
+            if(currentActive > circles.length){
+                currentActive = circles.length;
+            }
+            update();
+        })
+
+    </script>
+</body>
+</html>
